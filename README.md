@@ -2,7 +2,7 @@
 
 A small static birthday site — messages from everyone, plus three riddles to crack.
 
-**Live:** https://rifahnazar1.github.io/ziggi/
+**Live:** https://rifahnazar1.github.io/ziggy/
 
 ## Structure
 
