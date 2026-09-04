@@ -1,0 +1,700 @@
+/* ============================================================
+   ZIGGY — birthday site
+   theme: ZGK navy / steel blue, cozy-tech
+   ============================================================ */
+:root{
+  --bg:#060e1a;
+  --bg-2:#0c2e54;
+  --panel:rgba(200,225,255,.04);
+  --panel-2:rgba(200,225,255,.07);
+  --line:rgba(180,215,255,.13);
+
+  /* three theme colours, as rgb triplets so glows can reuse them */
+  --c1:82,150,232;      /* primary — lifted ZGK navy */
+  --c2:207,216,227;     /* warm  — platinum */
+  --c3:200,60,70;       /* cool  — ZGK red  */
+  --c1-soft:127,176,239;
+
+  --pink:rgb(var(--c1));
+  --pink-soft:rgb(var(--c1-soft));
+  --amber:rgb(var(--c2));
+  --violet:rgb(var(--c3));
+
+  --text:#eaf1fb;
+  --muted:#a9bdd6;
+  --dim:rgba(169,189,214,.6);
+
+  --font-display:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --font-letter:'Newsreader',Georgia,serif;
+  --max:1120px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{transition:background .5s ease}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-display);
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ============ SCROLL PROGRESS ============ */
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;z-index:100;
+  transform:scaleX(0);transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--pink),var(--amber),var(--violet));
+  box-shadow:0 0 12px rgba(var(--c1),.7);
+}
+
+/* ============ BACKGROUND ============ */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(var(--c1),.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(var(--c1),.045) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 18%,transparent 76%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,#000 18%,transparent 76%);
+  animation:gridDrift 34s linear infinite;
+}
+@keyframes gridDrift{to{background-position:56px 56px}}
+
+.bg-glow{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(980px 660px at 12% -6%,rgba(var(--c1),.26),transparent 64%),
+    radial-gradient(820px 600px at 92% 10%,rgba(var(--c3),.17),transparent 66%),
+    radial-gradient(900px 640px at 78% 62%,rgba(var(--c2),.11),transparent 66%),
+    radial-gradient(1000px 720px at 45% 110%,rgba(var(--c1),.12),transparent 68%);
+  animation:breathe 13s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{opacity:.85;transform:scale(1)}
+  50%    {opacity:1;transform:scale(1.05)}
+}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px clamp(18px,5vw,48px);
+  background:color-mix(in srgb,var(--bg) 76%,transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  animation:dropIn .8s var(--ease) both;
+}
+@keyframes dropIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:none}}
+
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand-mark{
+  display:grid;place-items:center;
+  width:52px;height:52px;
+  border:1.5px solid var(--pink);border-radius:16px;
+  color:var(--pink);
+  font-family:var(--font-mono);font-size:20px;font-weight:700;
+  box-shadow:0 0 22px rgba(var(--c1),.34),inset 0 0 18px rgba(var(--c1),.12);
+  animation:pulseGlow 3.6s ease-in-out infinite;
+  transition:transform .3s var(--ease);
+}
+.brand:hover .brand-mark{transform:rotate(-6deg) scale(1.06)}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 20px rgba(var(--c1),.28),inset 0 0 16px rgba(var(--c1),.10)}
+  50%    {box-shadow:0 0 34px rgba(var(--c1),.55),inset 0 0 22px rgba(var(--c1),.18)}
+}
+
+.brand-logo{
+  position:relative;overflow:hidden;
+  display:block;padding:6px 10px;border-radius:12px;
+  background:linear-gradient(180deg,#fff,#e9eef5);
+  box-shadow:0 0 20px rgba(var(--c2),.20),0 2px 10px rgba(0,0,0,.5);
+  line-height:0;
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.brand:hover .brand-logo{transform:translateY(-2px);box-shadow:0 0 30px rgba(var(--c2),.4),0 4px 14px rgba(0,0,0,.5)}
+.brand-logo img{height:34px;width:auto;display:block;mix-blend-mode:multiply}
+/* light sweeps across the metal logo */
+.brand-logo::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.85) 50%,transparent 65%);
+  transform:translateX(-140%);
+  animation:shine 6s ease-in-out infinite;
+}
+@keyframes shine{0%,70%{transform:translateX(-140%)}85%,100%{transform:translateX(140%)}}
+
+.menu-btn{
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  width:44px;height:44px;padding:0 8px;background:none;border:0;cursor:pointer;
+}
+.menu-btn span{display:block;height:2.5px;background:var(--text);border-radius:2px;transition:.3s var(--ease)}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(0)}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+
+.menu{
+  position:absolute;top:calc(100% + 8px);right:clamp(18px,5vw,48px);
+  display:flex;flex-direction:column;gap:2px;
+  min-width:190px;padding:10px;
+  background:color-mix(in srgb,var(--bg-2) 94%,transparent);
+  border:1px solid var(--line);border-radius:16px;
+  backdrop-filter:blur(14px);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);
+  transition:.28s var(--ease);
+}
+.menu.open{opacity:1;visibility:visible;transform:none}
+.menu a{
+  padding:11px 14px;border-radius:10px;
+  color:var(--muted);text-decoration:none;
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  transition:.2s var(--ease);
+}
+.menu a:hover{color:var(--pink);background:rgba(var(--c1),.10);transform:translateX(4px)}
+
+/* ============ LAYOUT ============ */
+.hero,.section{
+  position:relative;z-index:2;
+  max-width:var(--max);margin:0 auto;
+  padding:clamp(52px,9vw,96px) clamp(20px,5vw,40px);
+}
+
+/* ============ HERO ============ */
+.hero-title{
+  font-size:clamp(2.9rem,10.5vw,6.2rem);
+  font-weight:700;line-height:1.02;letter-spacing:-.03em;
+}
+.hero-title .line{display:block;animation:riseIn 1s var(--ease) both}
+.hero-title .line:nth-child(1){animation-delay:.15s}
+.hero-title .line:nth-child(2){animation-delay:.32s}
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(34px);filter:blur(10px)}
+  to  {opacity:1;transform:none;filter:blur(0)}
+}
+
+.accent{
+  background:linear-gradient(100deg,var(--pink) 0%,var(--amber) 30%,var(--pink) 55%,var(--violet) 85%,var(--pink) 100%);
+  background-size:280% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  animation:flow 9s ease-in-out infinite;
+  filter:drop-shadow(0 0 26px rgba(var(--c1),.4));
+}
+@keyframes flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.hero-rule{
+  height:2px;margin:34px 0 42px;max-width:520px;
+  background:linear-gradient(90deg,var(--pink),var(--amber),rgba(var(--c1),0));
+  transform-origin:0 50%;
+  animation:drawRule 1.1s var(--ease) .5s both;
+}
+@keyframes drawRule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.stat{
+  position:relative;overflow:hidden;
+  padding:26px 22px 24px;
+  background:var(--panel);
+  border:1px solid var(--line);border-radius:22px;
+  backdrop-filter:blur(6px);
+  transition:transform .35s var(--ease),border-color .35s,box-shadow .35s,background .35s;
+}
+.stat::before{
+  content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;
+  background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),rgba(var(--c1),.14),transparent 65%);
+}
+.stat:hover::before{opacity:1}
+.stat:hover{
+  transform:translateY(-6px);
+  background:var(--panel-2);
+  border-color:rgba(var(--c1),.42);
+  box-shadow:0 18px 46px rgba(var(--c1),.14);
+}
+.stat-num{
+  position:relative;
+  font-size:clamp(1.7rem,4.4vw,2.3rem);font-weight:700;
+  color:var(--pink-soft);letter-spacing:-.02em;
+  text-shadow:0 0 28px rgba(var(--c1),.32);
+}
+.stat-label{
+  position:relative;margin-top:12px;
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:1.7;
+}
+
+/* ============ SECTION HEADS ============ */
+.eyebrow{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--pink);
+  margin-bottom:20px;
+}
+.dash{
+  display:block;width:44px;height:1.5px;
+  background:linear-gradient(90deg,var(--pink),var(--amber));
+  transform-origin:0 50%;transform:scaleX(0);
+  transition:transform .8s var(--ease) .15s;
+}
+.eyebrow.in .dash{transform:scaleX(1)}
+.section-title{
+  font-size:clamp(2.1rem,6.5vw,3.6rem);
+  font-weight:700;line-height:1.06;letter-spacing:-.025em;
+  margin-bottom:44px;
+}
+
+/* ============ CARDS (messages + riddles) ============ */
+.riddle-stack{display:flex;flex-direction:column;gap:20px}
+
+.riddle{
+  position:relative;cursor:pointer;
+  padding:32px 30px;
+  background:var(--panel);
+  border:1.5px solid var(--c);
+  border-radius:22px;
+  backdrop-filter:blur(6px);
+  --c:var(--pink);
+  --cr:var(--c1);
+  box-shadow:0 0 40px -18px var(--c),0 10px 34px -22px #000;
+  transition:transform .38s var(--ease),box-shadow .38s,background .38s;
+}
+.riddle.cyan  {--c:var(--amber); --cr:var(--c2)}
+.riddle.violet{--c:var(--violet);--cr:var(--c3)}
+
+/* cursor-tracking glow */
+.riddle::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  border-radius:inherit;overflow:hidden;
+  opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(var(--cr),.13),transparent 62%);
+}
+.riddle:hover::before{opacity:1}
+.riddle:hover{transform:translateY(-5px);background:var(--panel-2);box-shadow:0 0 58px -16px var(--c),0 18px 44px -26px #000}
+.riddle:active{transform:translateY(-2px) scale(.995)}
+.riddle:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+.riddle.open{background:var(--panel-2);box-shadow:0 0 64px -18px var(--c),0 18px 46px -26px #000}
+
+.corner{position:absolute;width:30px;height:30px;pointer-events:none;transition:.45s var(--ease)}
+.corner.tl{top:-1.5px;left:-1.5px;border-top:2.5px solid var(--c);border-left:2.5px solid var(--c);border-radius:22px 0 0 0}
+.corner.br{bottom:-1.5px;right:-1.5px;border-bottom:2.5px solid var(--c);border-right:2.5px solid var(--c);border-radius:0 0 22px 0}
+.riddle:hover .corner{width:46px;height:46px}
+.riddle.open .corner{width:56px;height:56px}
+
+.riddle-tag{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--c);
+  margin-bottom:14px;
+}
+.riddle-title{
+  font-size:clamp(1.35rem,3.6vw,1.85rem);
+  font-weight:700;letter-spacing:-.015em;
+  transition:color .3s;
+}
+.riddle-title.coords{
+  font-family:var(--font-mono);
+  font-size:clamp(1.05rem,3vw,1.5rem);letter-spacing:-.01em;
+}
+
+.riddle-body{
+  display:grid;grid-template-rows:0fr;opacity:0;
+  transition:grid-template-rows .55s var(--ease),opacity .4s,margin .55s var(--ease);
+}
+.riddle-body > *{overflow:hidden;min-height:0}
+.riddle.open .riddle-body{grid-template-rows:1fr;opacity:1;margin-top:18px}
+
+.riddle-body p{
+  color:var(--muted);font-size:1.02rem;line-height:1.95;
+  opacity:0;transform:translateY(14px);filter:blur(4px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s;
+}
+.riddle.open .riddle-body p{opacity:1;transform:none;filter:blur(0)}
+.riddle-body p + p{margin-top:1.1em}
+/* stagger each paragraph as the card opens */
+.riddle.open .riddle-body p:nth-child(1){transition-delay:.12s}
+.riddle.open .riddle-body p:nth-child(2){transition-delay:.20s}
+.riddle.open .riddle-body p:nth-child(3){transition-delay:.28s}
+.riddle.open .riddle-body p:nth-child(4){transition-delay:.36s}
+.riddle.open .riddle-body p:nth-child(5){transition-delay:.44s}
+.riddle.open .riddle-body p:nth-child(6){transition-delay:.52s}
+
+/* birthday messages read like a handwritten note */
+.riddle.letter .riddle-body p{
+  font-family:var(--font-letter);
+  font-size:1.16rem;line-height:1.85;letter-spacing:.005em;color:#dce8f6;
+}
+.riddle.letter .riddle-body p:last-child{font-style:italic;color:var(--pink-soft)}
+.riddle.letter .riddle-title{letter-spacing:-.005em}
+
+.riddle-cta{
+  margin-top:22px;text-align:right;
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:var(--dim);transition:color .3s;
+}
+.riddle:hover .riddle-cta{color:var(--muted)}
+.riddle.open .riddle-cta{color:var(--c)}
+
+/* heart that floats up when a message is opened */
+.pop-heart{
+  position:fixed;z-index:80;pointer-events:none;
+  font-size:18px;
+  animation:floatUp 1.5s var(--ease) forwards;
+}
+@keyframes floatUp{
+  0%  {opacity:0;transform:translate(-50%,0) scale(.4)}
+  18% {opacity:1;transform:translate(-50%,-14px) scale(1.1)}
+  100%{opacity:0;transform:translate(-50%,-110px) scale(.7)}
+}
+
+/* ============ FOOTER ============ */
+.footer{
+  position:relative;z-index:2;
+  max-width:var(--max);margin:0 auto;
+  padding:0 clamp(20px,5vw,40px) 64px;text-align:center;
+}
+.footer-rule{
+  height:1px;margin-bottom:28px;
+  background:linear-gradient(90deg,transparent,rgba(var(--c1),.45),transparent);
+}
+.footer p{
+  font-family:var(--font-mono);font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+}
+.footer .accent{font-weight:700}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{
+  opacity:0;transform:translateY(26px);filter:blur(6px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease),filter .85s;
+}
+.reveal.in{opacity:1;transform:none;filter:blur(0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    transition-duration:.01ms !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+  }
+  .reveal{opacity:1;transform:none;filter:none}
+  .hero-title .line,.hero-rule{opacity:1;transform:none;filter:none}
+}
+
+@media (max-width:560px){
+  .brand-mark{width:46px;height:46px;font-size:18px;border-radius:14px}
+  .brand-logo img{height:28px}
+  .riddle{padding:26px 22px}
+  .riddle:hover{transform:none}
+}
+
+/* ============ AURORA (slow colour drift behind everything) ============ */
+.aurora{
+  position:fixed;inset:-30%;z-index:0;pointer-events:none;
+  filter:blur(90px);opacity:.5;
+  background:
+    radial-gradient(38% 44% at 22% 30%,rgba(var(--c1),.55),transparent 60%),
+    radial-gradient(34% 40% at 74% 26%,rgba(var(--c3),.42),transparent 62%),
+    radial-gradient(40% 42% at 58% 76%,rgba(var(--c2),.34),transparent 62%),
+    radial-gradient(32% 38% at 18% 78%,rgba(var(--c1),.32),transparent 62%);
+  animation:auroraDrift 42s ease-in-out infinite alternate;
+}
+@keyframes auroraDrift{
+  0%  {transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  50% {transform:translate3d(3%,-3%,0) rotate(6deg) scale(1.12)}
+  100%{transform:translate3d(-3%,3%,0) rotate(-5deg) scale(1.06)}
+}
+
+/* ============ FILM GRAIN (kills gradient banding) ============ */
+.grain{
+  position:fixed;inset:-120px;z-index:1;pointer-events:none;
+  opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift .7s steps(3) infinite;
+}
+@keyframes grainShift{
+  0%{transform:translate(0,0)}33%{transform:translate(-14px,9px)}66%{transform:translate(11px,-12px)}100%{transform:translate(0,0)}
+}
+
+/* ============ VIGNETTE ============ */
+.vignette{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(ellipse 78% 64% at 50% 42%,transparent 40%,color-mix(in srgb,var(--bg) 70%,#000) 100%);
+}
+
+/* ============ SHOOTING STAR ============ */
+.shooter{
+  position:fixed;z-index:1;pointer-events:none;
+  width:150px;height:1.5px;
+  background:linear-gradient(90deg,rgba(var(--c1-soft),0),rgba(var(--c1-soft),.95),rgba(255,255,255,.9));
+  border-radius:2px;
+  filter:drop-shadow(0 0 6px rgba(var(--c1),.9));
+  animation:shoot 1.5s cubic-bezier(.3,0,.7,1) forwards;
+}
+@keyframes shoot{
+  0%  {opacity:0;transform:translate(0,0) rotate(18deg) scaleX(.2)}
+  12% {opacity:1}
+  100%{opacity:0;transform:translate(560px,180px) rotate(18deg) scaleX(1)}
+}
+
+/* ============ SMALL DETAILS ============ */
+::selection{background:rgba(var(--c1),.32);color:#fff}
+::-moz-selection{background:rgba(var(--c1),.32);color:#fff}
+
+html{scrollbar-color:rgba(var(--c1),.45) transparent;scrollbar-width:thin}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.03)}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--pink),var(--violet));
+  border-radius:10px;border:2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--pink-soft),var(--pink))}
+
+/* sticky nav shouldn't cover anchor targets */
+section[id]{scroll-margin-top:92px}
+
+/* whole page eases in on first paint */
+body{opacity:0;transition:opacity .7s ease}
+body.ready{opacity:1}
+
+/* cards get a gentle 3D tilt toward the cursor */
+.riddle-stack,.stats{perspective:1400px}
+.riddle,.stat{transform-style:preserve-3d}
+
+/* nav hides on scroll-down, returns on scroll-up */
+.nav{transition:transform .45s var(--ease),background .3s}
+.nav.hidden{transform:translateY(-105%)}
+
+/* the ♥ in the footer beats */
+.beat{display:inline-block;color:var(--pink);animation:beat 1.9s ease-in-out infinite}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  14%{transform:scale(1.28)}
+  28%{transform:scale(1)}
+  42%{transform:scale(1.18)}
+  56%{transform:scale(1)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .aurora,.grain{animation:none}
+  .grain{display:none}
+  body{opacity:1}
+}
+
+/* ============================================================
+   PALETTE — ZGK. Deep navy, steel blue, platinum, racing red.
+   Mirrors :root so the tokens stay in one obvious place.
+   ============================================================ */
+[data-palette="zgk"]{
+  --bg:#060e1a; --bg-2:#0c2e54;
+  --c1:82,150,232; --c1-soft:127,176,239; --c2:207,216,227; --c3:200,60,70;
+  --text:#eaf1fb; --muted:#a9bdd6; --dim:rgba(169,189,214,.6);
+  --panel:rgba(200,225,255,.04); --panel-2:rgba(200,225,255,.07);
+  --line:rgba(180,215,255,.13);
+}
+
+/* ============================================================
+   SECTION A · LETTER WALL — messages as tilted, taped-up notes
+   ============================================================ */
+.letter-wall{
+  display:flex;flex-direction:column;gap:26px;
+  perspective:1400px;
+}
+
+/* each note sits slightly off-centre, at its own angle */
+.riddle.letter{
+  --rot:0deg;
+  width:min(100%,660px);
+  border-radius:6px 22px 8px 20px;      /* hand-cut paper, not a UI panel */
+  transform:rotate(var(--rot));
+  box-shadow:0 0 34px -20px var(--c),0 14px 30px -18px #000;
+}
+.letter-wall .riddle.letter:nth-child(6n+1){--rot:-1.1deg;align-self:flex-start;margin-left:0}
+.letter-wall .riddle.letter:nth-child(6n+2){--rot: 1.4deg;align-self:flex-end;  margin-right:2%}
+.letter-wall .riddle.letter:nth-child(6n+3){--rot:-0.7deg;align-self:center}
+.letter-wall .riddle.letter:nth-child(6n+4){--rot: 1.0deg;align-self:flex-start;margin-left:5%}
+.letter-wall .riddle.letter:nth-child(6n+5){--rot:-1.5deg;align-self:flex-end;  margin-right:0}
+.letter-wall .riddle.letter:nth-child(6n+6){--rot: 0.8deg;align-self:center;    margin-left:3%}
+
+/* short notes get a smaller card so the wall isn't a wall of rectangles */
+.letter-wall .riddle.letter:nth-child(3n+2){width:min(100%,540px)}
+.letter-wall .riddle.letter:nth-child(6n+3){width:min(100%,470px)}
+
+/* notes straighten up when you reach for them */
+.riddle.letter:hover{transform:rotate(0deg) translateY(-6px) scale(1.012)}
+.riddle.letter.open {transform:rotate(0deg)}
+
+/* brackets are the puzzle language — notes get a strip of tape instead */
+.riddle.letter .corner{display:none}
+.riddle.letter::after{
+  content:'';position:absolute;top:-9px;left:50%;
+  width:86px;height:20px;
+  transform:translateX(-50%) rotate(-2.5deg);
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.07));
+  border-left:1px solid rgba(255,255,255,.10);
+  border-right:1px solid rgba(255,255,255,.10);
+  backdrop-filter:blur(2px);
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+  transition:transform .4s var(--ease);
+}
+.riddle.letter:hover::after{transform:translateX(-50%) rotate(1.5deg) scaleX(1.06)}
+
+/* the "from" line is the headline of a note, so let it breathe */
+.riddle.letter .riddle-tag{opacity:.75;font-size:10px}
+.riddle.letter .riddle-title{font-family:var(--font-letter);font-weight:500;font-size:clamp(1.4rem,4vw,2rem)}
+.riddle.letter .riddle-cta{text-align:left}
+
+/* ============================================================
+   SECTION B · RAIL — riddles as a numbered terminal timeline
+   ============================================================ */
+.riddle-stack.rail{
+  position:relative;
+  padding-left:64px;
+  counter-reset:puzzle;
+}
+/* the glowing spine */
+.riddle-stack.rail::before{
+  content:'';position:absolute;left:22px;top:14px;bottom:14px;width:2px;
+  background:linear-gradient(180deg,
+    transparent,
+    rgb(var(--c1)) 8%,
+    rgb(var(--c2)) 50%,
+    rgb(var(--c3)) 88%,
+    transparent);
+  opacity:.5;
+  box-shadow:0 0 14px rgba(var(--c1),.5);
+}
+/* numbered node on the spine, one per card */
+.riddle.puzzle::after{
+  counter-increment:puzzle;
+  content:'0' counter(puzzle);
+  position:absolute;left:-63px;top:26px;
+  display:grid;place-items:center;
+  width:44px;height:44px;
+  background:var(--bg);
+  border:1.5px solid var(--c);
+  border-radius:50%;
+  font-family:var(--font-mono);font-size:12px;font-weight:700;
+  color:var(--c);
+  box-shadow:0 0 18px -4px var(--c);
+  transition:.4s var(--ease);
+}
+.riddle.puzzle:hover::after{transform:scale(1.12)}
+.riddle.puzzle.open::after{
+  content:'✓';font-size:16px;
+  background:var(--c);color:var(--bg);
+  box-shadow:0 0 26px -2px var(--c);
+}
+
+/* dossier corners: notched, not rounded — the opposite of the notes */
+.riddle.puzzle{border-radius:4px}
+.riddle.puzzle .corner.tl{border-radius:0;transform:rotate(0)}
+.riddle.puzzle .corner.br{border-radius:0}
+/* faint scanline over the puzzle cards only */
+.riddle.puzzle .riddle-body{
+  background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.022) 0 1px,transparent 1px 4px);
+}
+.riddle.puzzle .riddle-tag{font-weight:700}
+
+/* the decrypt runs the reveal on puzzle cards, so drop the blur/slide */
+.riddle.puzzle .riddle-body p{transform:none;filter:none;transition:opacity .3s var(--ease)}
+.riddle.puzzle.open .riddle-body p{opacity:1}
+.riddle.puzzle.open .riddle-body p:nth-child(n){transition-delay:0s}
+
+/* scan bar that sweeps the card while it decrypts */
+.riddle.puzzle .scan{
+  position:absolute;inset:0;pointer-events:none;
+  border-radius:inherit;overflow:hidden;opacity:0;
+}
+.riddle.puzzle .scan::before{
+  content:'';position:absolute;left:0;right:0;top:0;height:34%;
+  background:linear-gradient(180deg,
+    transparent,
+    rgba(var(--cr),.10) 55%,
+    rgba(var(--cr),.30) 88%,
+    rgba(var(--cr),.75) 97%,
+    transparent);
+}
+.riddle.puzzle.scanning .scan{opacity:1}
+.riddle.puzzle.scanning .scan::before{animation:scanSweep 1.15s cubic-bezier(.32,.72,.35,1) forwards}
+@keyframes scanSweep{
+  0%  {transform:translateY(-110%);opacity:0}
+  12% {opacity:1}
+  88% {opacity:1}
+  100%{transform:translateY(330%);opacity:0}
+}
+
+/* the card itself flickers as the lock gives way */
+.riddle.puzzle.scanning{animation:unlockFlicker .5s steps(1,end)}
+@keyframes unlockFlicker{
+  0%,100%{border-color:var(--c)}
+  18%,52%{border-color:rgba(var(--cr),.35)}
+  34%,72%{border-color:#fff}
+}
+
+/* the spine node stamps itself green-lit once solved */
+.riddle.puzzle.open::after{animation:nodeStamp .5s var(--ease)}
+@keyframes nodeStamp{
+  0%  {transform:scale(.72) rotate(-14deg)}
+  55% {transform:scale(1.24) rotate(4deg)}
+  100%{transform:scale(1)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .riddle.puzzle .scan{display:none}
+  .riddle.puzzle.scanning,.riddle.puzzle.open::after{animation:none}
+}
+
+/* ============================================================
+   SECTION C · THANKS — no card, just the names on the page
+   ============================================================ */
+.thanks .section-title{margin-bottom:30px}
+
+.thanks-lead{
+  font-family:var(--font-mono);font-size:10px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--dim);
+}
+.thanks-names{
+  list-style:none;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 0;
+  max-width:640px;
+  margin:18px 0 24px;
+}
+.thanks-names li{
+  font-size:1.14rem;font-weight:500;color:var(--text);
+  transition:color .28s;
+}
+.thanks-names li:hover{color:rgb(var(--c1))}
+/* hairline separator between names */
+.thanks-names li:not(:last-child)::after{
+  content:'';display:inline-block;
+  width:26px;height:1px;margin:0 14px;
+  vertical-align:middle;
+  background:linear-gradient(90deg,rgba(var(--c1),.55),rgba(var(--c1),.15));
+}
+.thanks-note{
+  font-family:var(--font-letter);
+  font-size:1.1rem;line-height:1.8;color:var(--muted);
+  max-width:560px;
+}
+.thanks-note .accent{font-family:var(--font-display);font-weight:700}
+
+@media (max-width:560px){
+  .thanks-names li{font-size:1rem}
+  .thanks-names li:not(:last-child)::after{width:18px;margin:0 10px}
+}
+}
+
+@media (max-width:700px){
+  .letter-wall .riddle.letter{
+    width:100%;align-self:stretch;margin-left:0 !important;margin-right:0 !important;
+  }
+  .letter-wall .riddle.letter:nth-child(n){--rot:0deg}
+  .riddle.letter::after{width:70px}
+  .riddle-stack.rail{padding-left:0;padding-top:8px}
+  .riddle-stack.rail::before{display:none}
+  .riddle.puzzle::after{
+    left:auto;right:20px;top:-16px;width:38px;height:38px;font-size:11px;
+  }
+}

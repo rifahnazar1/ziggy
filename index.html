@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="zgk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday Ziggy!</title>
+<meta name="description" content="A little corner of the internet for Ziggy's birthday — messages from everyone, and three riddles to crack." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#060e1a" />
+<meta property="og:title" content="Happy Birthday Ziggy!" />
+<meta property="og:description" content="Messages from everyone, and three riddles to crack." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+<div class="aurora" aria-hidden="true"></div>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <a class="brand" href="#top">
+    <span class="brand-mark">&gt;_</span>
+    <span class="brand-logo"><img src="assets/zgkm.jpg" alt="ZGKM" /></span>
+  </a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="menu" id="menu">
+    <a href="#top">Top</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#riddles">Riddles</a>
+    <a href="#thanks">Thanks</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <h1 class="hero-title">
+    <span class="line">Happy Birthday</span>
+    <span class="line accent">Ziggy!</span>
+  </h1>
+  <div class="hero-rule"></div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">Today</div>
+      <div class="stat-label">Official Legend Day</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Certified Menace</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Riddles To Crack</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">&#8734;</div>
+      <div class="stat-label">Good Vibes Incoming</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="section" id="reviews">
+  <div class="eyebrow"><span class="dash"></span> Messages</div>
+  <h2 class="section-title">User Feedback<br><span class="accent">&amp; Reviews.</span></h2>
+
+  <div class="letter-wall" id="reviewGrid">
+    <!-- cards injected by script.js -->
+  </div>
+</section>
+
+<!-- ===== RIDDLES ===== -->
+<section class="section" id="riddles">
+  <div class="eyebrow"><span class="dash"></span> Encrypted</div>
+  <h2 class="section-title">Crack the<br><span class="accent">code.</span></h2>
+
+  <div class="riddle-stack rail">
+
+    <article class="riddle puzzle" tabindex="0" role="button" aria-expanded="false">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <div class="riddle-tag">Riddle 01</div>
+      <h3 class="riddle-title">Heavy Metal Master Chief</h3>
+      <div class="riddle-body">
+        <p>Forged in metal, not in glass,<br>
+        A legendary hero from the past.<br>
+        Ring-shaped worlds and Plasma fires,<br>
+        To finish the fight is your desire.</p>
+      </div>
+      <div class="riddle-cta">Click to decrypt</div>
+    </article>
+
+    <article class="riddle puzzle cyan" tabindex="0" role="button" aria-expanded="false">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <div class="riddle-tag">Riddle 02</div>
+      <h3 class="riddle-title">Track 3 Attire</h3>
+      <div class="riddle-body">
+        <p>A sacred ritual, a dark refrain,<br>
+        Album number three in the Eden reign.<br>
+        Wear the worship on your chest,<br>
+        Because everyone knows that you're the best.</p>
+      </div>
+      <div class="riddle-cta">Click to decrypt</div>
+    </article>
+
+    <article class="riddle puzzle violet" tabindex="0" role="button" aria-expanded="false">
+      <div class="corner tl"></div><div class="corner br"></div>
+      <div class="riddle-tag">Riddle 03</div>
+      <h3 class="riddle-title coords">37.91299&deg; S, 145.41762&deg; E</h3>
+      <div class="riddle-body">
+        <p>Two individuals, date number three,<br>
+        Looking up at eternity.<br>
+        The night sky froze above our head,<br>
+        To mark the exact path we tread.</p>
+      </div>
+      <div class="riddle-cta">Click to decrypt</div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ===== THANKS ===== -->
+<section class="section thanks" id="thanks">
+  <div class="eyebrow"><span class="dash"></span> Credits</div>
+  <h2 class="section-title">With<br><span class="accent">thanks.</span></h2>
+
+  <p class="thanks-lead">Thank you to all those who helped to put this together</p>
+  <ul class="thanks-names">
+    <li>The Kempins</li>
+    <li>Pop</li>
+    <li>Grandma</li>
+    <li>Oma</li>
+    <li>Shane</li>
+    <li>Moto__Visuals</li>
+  </ul>
+  <p class="thanks-note">And the one who offered her skills so kindly to make this possible, Rifah.</p>
+</section>
+
+<footer class="footer">
+  <div class="footer-rule"></div>
+  <p>Made with far too much <span class="beat">&#9829;</span> &#183; <span class="accent">ZGKM</span></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
